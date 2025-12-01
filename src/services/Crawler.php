@@ -45,7 +45,7 @@ class Crawler
                 $product = new Product($data);
                 $product->save();
 
-            } catch (Throwable $e) {
+            } catch (\Exception $e) {
                 $this->logger->log("Exception on $url: " . $e->getMessage());
             }
         }
