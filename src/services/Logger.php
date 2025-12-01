@@ -1,5 +1,6 @@
 <?php
 
+namespace services;
 class Logger
 {
     private string $file;

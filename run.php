@@ -1,16 +1,16 @@
 <?php
+require_once __DIR__ . '/src/autoload.php';
+require_once 'simple_html_dom.php';
 
-require_once __DIR__ . '/simple_html_dom.php';
-require_once __DIR__ . '/src/Fetcher.php';
-require_once __DIR__ . '/src/Parser.php';
-require_once __DIR__ . '/src/Database.php';
-require_once __DIR__ . '/src/Logger.php';
-require_once __DIR__ . '/src/Crawler.php';
+use services\Crawler;
 
-$urls = [
-    "https://example.com/product1",
-    "https://example.com/product2",
-];
+$urls = [];
+// get products list from e-shop
+$html =  file_get_html('https://www.e-shop.gr/ypologistes-koutia-cases-list?table=PER&category=%CA%CF%D5%D4%C9%C1+-+CASES');
+
+foreach($html->find('.web-product-title a') as $productLink) {
+    $urls[] = $productLink->href;
+}
 
 $crawler = new Crawler($urls);
 $crawler->run();

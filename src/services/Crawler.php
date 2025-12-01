@@ -1,11 +1,13 @@
 <?php
+namespace services;
+
+use models\Product;
 
 class Crawler
 {
     private array $urls;
     private Fetcher $fetcher;
     private Parser $parser;
-    private Database $db;
     private Logger $logger;
 
     public function __construct(array $urls)
@@ -13,7 +15,6 @@ class Crawler
         $this->urls = $urls;
         $this->fetcher = new Fetcher();
         $this->parser = new Parser();
-        $this->db = new Database(__DIR__ . '/../products.sqlite');
         $this->logger = new Logger(__DIR__ . '/../log.txt');
     }
 
@@ -37,11 +38,12 @@ class Crawler
 
                 $data = $this->parser->parse($html);
 
-                if (!$data['title'] || !$data['price'] || !$data['availability']) {
+                if (!$data) {
                     $this->logger->log("Missing fields in $url: " . json_encode($data));
                 }
 
-                $this->db->insertProduct($url, $data);
+                $product = new Product($data);
+                $product->save();
 
             } catch (Throwable $e) {
                 $this->logger->log("Exception on $url: " . $e->getMessage());

@@ -1,5 +1,6 @@
 <?php
 
+namespace services;
 class Fetcher
 {
     public function fetch(string $url): ?string
@@ -7,11 +8,11 @@ class Fetcher
         $ch = curl_init();
 
         curl_setopt_array($ch, [
-            CURLOPT_URL            => $url,
+            CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_TIMEOUT        => 10,
-            CURLOPT_USERAGENT      => "Mozilla/5.0 PHP Web Crawler",
+            CURLOPT_TIMEOUT => 10,
+            CURLOPT_USERAGENT => "Mozilla/5.0 PHP Web Crawler",
         ]);
 
         $html = curl_exec($ch);
