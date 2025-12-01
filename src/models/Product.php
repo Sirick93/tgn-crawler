@@ -1,6 +1,6 @@
 <?php
 namespace models;
-class Product extends DB
+class Product extends Record
 {
     public string $title;
     public string $price;

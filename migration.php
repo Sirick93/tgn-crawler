@@ -1,5 +1,5 @@
 <?php
-$db = new PDO('sqlite:tgn_crawler.db');
+$db = new PDO('sqlite:tgn_crawler.sqlite');
 
 $query = "CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
